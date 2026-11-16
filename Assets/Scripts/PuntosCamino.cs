@@ -3,34 +3,45 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
+    public enum TurnDirection { Straight, Right, Left }
+
+    [Header("Tipo de Maniobra")]
+    public TurnDirection direction = TurnDirection.Straight;
+
     [Header("Conexiones de Ruta")]
-    [Tooltip("Siguiente(s) punto(s) en el carril. Si hay más de uno, el vehículo elige al azar.")]
     public List<Waypoint> nextWaypoints = new List<Waypoint>();
 
     [Header("Control de Semáforo (Opcional)")]
-    [Tooltip("Asignar solo en el waypoint que está justo en la línea de alto antes del cruce.")]
     public TrafficLight trafficLight;
 
-    public Waypoint GetNextWaypoint()
+    public Waypoint GetNextWaypoint(bool allowTurns = true)
     {
         if (nextWaypoints == null || nextWaypoints.Count == 0)
             return null;
 
-        int randomIndex = Random.Range(0, nextWaypoints.Count);
-        return nextWaypoints[randomIndex];
+        // Si el vehículo no tiene permitido girar, filtra solo los nodos rectos
+        if (!allowTurns)
+        {
+            List<Waypoint> straightOptions = nextWaypoints.FindAll(wp => wp != null && wp.direction == TurnDirection.Straight);
+            if (straightOptions.Count > 0)
+                return straightOptions[Random.Range(0, straightOptions.Count)];
+        }
+
+        return nextWaypoints[Random.Range(0, nextWaypoints.Count)];
     }
 
-    // Dibuja la ruta en la vista de Escena para armar los carriles fácil
     private void OnDrawGizmos()
     {
         Gizmos.color = trafficLight != null ? Color.red : Color.cyan;
         Gizmos.DrawSphere(transform.position, 0.35f);
 
-        Gizmos.color = Color.yellow;
         foreach (var next in nextWaypoints)
         {
             if (next != null)
             {
+                // Colorea cada ruta distinto en el editor para no confundirlas
+                Gizmos.color = next.direction == TurnDirection.Straight ? Color.green :
+                               next.direction == TurnDirection.Right ? Color.yellow : Color.magenta;
                 Gizmos.DrawLine(transform.position, next.transform.position);
             }
         }

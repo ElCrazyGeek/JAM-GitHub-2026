@@ -70,7 +70,7 @@ public class VehicleAI : MonoBehaviour
 
         // Solo frena si está cerca de la línea de alto y el semáforo no permite pasar
         float distToLine = Vector3.Distance(transform.position, currentWaypoint.transform.position);
-        if (distToLine <= 2.5f && !currentWaypoint.trafficLight.CanPass(ignoreYellowLight))
+        if (distToLine <= 6.5f && !currentWaypoint.trafficLight.CanPass(ignoreYellowLight))
         {
             return true;
         }
