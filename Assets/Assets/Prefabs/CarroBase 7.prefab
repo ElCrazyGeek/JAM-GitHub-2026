@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWaypoint: {fileID: 0}
   waypointReachDistance: 0.6
-  maxSpeed: 8
+  maxSpeed: 14
   turnSpeed: 6
   acceleration: 10
   brakeDeceleration: 20
@@ -112,8 +112,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.919623, y: 1.6861374, z: 6.2784195}
-  m_Center: {x: 0.061552763, y: 1.375938, z: -0.27934647}
+  m_Size: {x: 2.919623, y: 1.7807907, z: 6.4049034}
+  m_Center: {x: 0.061552763, y: 1.3286114, z: -0.28494453}
 --- !u!54 &204895963375919164
 Rigidbody:
   m_ObjectHideFlags: 0

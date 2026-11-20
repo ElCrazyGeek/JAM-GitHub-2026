@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWaypoint: {fileID: 0}
   waypointReachDistance: 0.6
-  maxSpeed: 8
+  maxSpeed: 10
   turnSpeed: 6
   acceleration: 10
   brakeDeceleration: 20
